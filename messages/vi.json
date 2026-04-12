@@ -1,0 +1,42 @@
+{
+  "nav": {
+    "logo": "Vizform"
+  },
+  "quiz": {
+    "progress": "{current} / {total}",
+    "back": "Quay lại",
+    "next": "Tiếp theo",
+    "submit": "Gửi",
+    "submitting": "Đang gửi..."
+  },
+  "result": {
+    "title": "Sở thích thiết kế",
+    "subtitle": "Tóm tắt các lựa chọn thiết kế của bạn",
+    "copyLink": "Sao chép liên kết",
+    "copied": "Đã sao chép!",
+    "shareDesc": "Chia sẻ liên kết này với nhà phát triển của bạn",
+    "answers": {
+      "style": "Phong cách tổng thể",
+      "primaryColor": "Màu chủ đạo",
+      "secondaryColor": "Màu phụ",
+      "borderRadius": "Độ bo tròn",
+      "shadow": "Độ đổ bóng",
+      "typography": "Phong cách chữ",
+      "density": "Mật độ bố cục",
+      "industry": "Lĩnh vực",
+      "projectName": "Tên dự án",
+      "description": "Mô tả"
+    }
+  },
+  "admin": {
+    "title": "Quản trị — Tất cả phiên",
+    "token": "Token",
+    "project": "Dự án",
+    "industry": "Lĩnh vực",
+    "lang": "Ngôn ngữ",
+    "date": "Ngày",
+    "view": "Xem",
+    "noSessions": "Chưa có phiên nào.",
+    "unauthorized": "Không có quyền. Thêm ?key=ADMIN_KEY"
+  }
+}

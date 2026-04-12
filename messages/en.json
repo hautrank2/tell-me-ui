@@ -1,0 +1,42 @@
+{
+  "nav": {
+    "logo": "Vizform"
+  },
+  "quiz": {
+    "progress": "{current} / {total}",
+    "back": "Back",
+    "next": "Next",
+    "submit": "Submit",
+    "submitting": "Submitting..."
+  },
+  "result": {
+    "title": "Design Preferences",
+    "subtitle": "Here's a summary of your design choices",
+    "copyLink": "Copy Share Link",
+    "copied": "Copied!",
+    "shareDesc": "Share this link with your developer",
+    "answers": {
+      "style": "Overall Style",
+      "primaryColor": "Primary Color",
+      "secondaryColor": "Secondary Color",
+      "borderRadius": "Corner Radius",
+      "shadow": "Shadow Depth",
+      "typography": "Typography",
+      "density": "Layout Density",
+      "industry": "Industry",
+      "projectName": "Project Name",
+      "description": "Description"
+    }
+  },
+  "admin": {
+    "title": "Admin — All Sessions",
+    "token": "Token",
+    "project": "Project",
+    "industry": "Industry",
+    "lang": "Lang",
+    "date": "Date",
+    "view": "View",
+    "noSessions": "No sessions yet.",
+    "unauthorized": "Unauthorized. Pass ?key=YOUR_ADMIN_KEY"
+  }
+}
