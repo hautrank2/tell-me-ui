@@ -12,8 +12,9 @@
   "result": {
     "title": "Sở thích thiết kế",
     "subtitle": "Tóm tắt các lựa chọn thiết kế của bạn",
-    "copyLink": "Sao chép liên kết",
-    "copied": "Đã sao chép!",
+    "copyLink": "Copy link",
+    "copied": "Đã copy!",
+    "saveSuccess": "Lưu thay đổi thành công!",
     "shareDesc": "Chia sẻ liên kết này với nhà phát triển của bạn",
     "answers": {
       "style": "Phong cách tổng thể",
@@ -24,6 +25,8 @@
       "typography": "Phong cách chữ",
       "density": "Mật độ bố cục",
       "industry": "Lĩnh vực",
+      "animation": "Kiểu Animation",
+      "features": "Tính năng bổ sung",
       "projectName": "Tên dự án",
       "description": "Mô tả"
     }
@@ -31,7 +34,7 @@
   "admin": {
     "title": "Quản trị — Tất cả phiên",
     "token": "Token",
-    "project": "Dự án",
+    "style": "Phong cách",
     "industry": "Lĩnh vực",
     "lang": "Ngôn ngữ",
     "date": "Ngày",

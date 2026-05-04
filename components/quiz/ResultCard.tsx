@@ -1,19 +1,19 @@
 'use client'
 
 import { questions } from '@/lib/questions'
-import type { Lang } from '@/lib/i18n'
+import { QuizLangModel } from '@/types/QuizModel'
 import { t } from '@/lib/i18n'
 
 interface Props {
-  answers: Record<string, string>
-  lang: Lang
+  answers: Record<string, any>
+  lang: QuizLangModel
 }
 
-function AnswerPreview({ questionId, value }: { questionId: string; value: string }) {
+function AnswerPreview({ questionId, value, lang }: { questionId: string; value: any; lang: QuizLangModel }) {
   if (questionId === 'primaryColor' || questionId === 'secondaryColor') {
     return (
       <div className="flex items-center gap-2">
-        <div className="h-6 w-6 rounded-full border border-zinc-200 dark:border-zinc-600" style={{ background: value }} />
+        <div className="h-6 w-6 rounded-full border border-border" style={{ background: value }} />
         <span className="font-mono text-sm uppercase">{value}</span>
       </div>
     )
@@ -23,7 +23,7 @@ function AnswerPreview({ questionId, value }: { questionId: string; value: strin
     const radii: Record<string, string> = { none: '0px', sm: '4px', md: '12px', lg: '20px', full: '9999px' }
     return (
       <div className="flex items-center gap-3">
-        <div className="h-8 w-12 bg-indigo-500" style={{ borderRadius: radii[value] || '0px' }} />
+        <div className="h-8 w-12 bg-primary" style={{ borderRadius: radii[value] || '0px' }} />
         <span className="text-sm capitalize">{value}</span>
       </div>
     )
@@ -38,7 +38,7 @@ function AnswerPreview({ questionId, value }: { questionId: string; value: strin
     }
     return (
       <div className="flex items-center gap-3">
-        <div className="h-8 w-12 rounded bg-white dark:bg-zinc-700" style={{ boxShadow: shadows[value] || 'none', border: value === 'flat' ? '1px solid #e5e7eb' : undefined }} />
+        <div className="h-8 w-12 rounded bg-card" style={{ boxShadow: shadows[value] || 'none', border: value === 'flat' ? '1px solid var(--border)' : undefined }} />
         <span className="text-sm capitalize">{value}</span>
       </div>
     )
@@ -55,9 +55,22 @@ function AnswerPreview({ questionId, value }: { questionId: string; value: strin
 
   // Find label from question options
   const q = questions.find((q) => q.id === questionId)
+  
+  if (Array.isArray(value)) {
+    if (value.length === 0) return <span className="text-sm italic text-muted-foreground">None</span>
+    return (
+      <ul className="list-inside list-disc text-sm">
+        {value.map((v) => {
+          const opt = q?.options?.find((o) => o.value === v)
+          return <li key={v}>{opt ? opt.label[lang] : v}</li>
+        })}
+      </ul>
+    )
+  }
+
   const opt = q?.options?.find((o) => o.value === value)
   if (opt) {
-    return <span className="text-sm">{opt.label.en} / {opt.label.vi}</span>
+    return <span className="text-sm">{opt.label[lang]}</span>
   }
 
   return <span className="text-sm whitespace-pre-wrap">{value}</span>
@@ -68,17 +81,17 @@ export function ResultCard({ answers, lang }: Props) {
     <div className="grid gap-4 sm:grid-cols-2">
       {questions.map((q) => {
         const val = answers[q.id]
-        if (!val) return null
+        if (val === undefined || val === '') return null
         return (
           <div
             key={q.id}
-            className="rounded-xl border border-zinc-200 bg-white p-4 dark:border-zinc-700 dark:bg-zinc-900"
+            className="rounded-xl border border-border bg-card p-4"
           >
-            <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">
+            <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
               {t(lang, `result.answers.${q.id}`)}
             </p>
-            <div className="text-zinc-800 dark:text-zinc-100">
-              <AnswerPreview questionId={q.id} value={val} />
+            <div className="text-foreground">
+              <AnswerPreview questionId={q.id} value={val} lang={lang} />
             </div>
           </div>
         )

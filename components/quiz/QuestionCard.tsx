@@ -1,23 +1,24 @@
 'use client'
 
-import type { Question } from '@/lib/questions'
-import type { Lang } from '@/lib/i18n'
+import { QuizLangModel, QuizQuestionModel } from '@/types/QuizModel'
 import { RadioVisualOption } from './options/RadioVisualOption'
 import { ColorOption } from './options/ColorOption'
 import { SelectOption } from './options/SelectOption'
 import { TextOption } from './options/TextOption'
+import { CheckboxOption } from './options/CheckboxOption'
+import { RadioOption } from './options/RadioOption'
 
 interface Props {
-  question: Question
-  value: string
-  onChange: (v: string) => void
-  lang: Lang
+  question: QuizQuestionModel
+  value: any
+  onChange: (v: any) => void
+  lang: QuizLangModel
 }
 
 export function QuestionCard({ question, value, onChange, lang }: Props) {
   return (
     <div className="flex flex-col gap-6">
-      <h2 className="text-xl font-semibold text-zinc-900 dark:text-white sm:text-2xl">
+      <h2 className="text-xl font-semibold text-foreground sm:text-2xl">
         {question.label[lang]}
       </h2>
 
@@ -33,6 +34,24 @@ export function QuestionCard({ question, value, onChange, lang }: Props) {
             />
           ))}
         </div>
+      )}
+
+      {question.type === 'radio' && question.options && (
+        <RadioOption
+          options={question.options}
+          value={value}
+          onChange={onChange}
+          lang={lang}
+        />
+      )}
+
+      {question.type === 'checkbox' && question.options && (
+        <CheckboxOption
+          options={question.options}
+          value={value || []}
+          onChange={onChange}
+          lang={lang}
+        />
       )}
 
       {question.type === 'color' && (

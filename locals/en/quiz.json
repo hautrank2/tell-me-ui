@@ -12,8 +12,9 @@
   "result": {
     "title": "Design Preferences",
     "subtitle": "Here's a summary of your design choices",
-    "copyLink": "Copy Share Link",
+    "copyLink": "Copy link",
     "copied": "Copied!",
+    "saveSuccess": "Changes saved successfully!",
     "shareDesc": "Share this link with your developer",
     "answers": {
       "style": "Overall Style",
@@ -24,6 +25,8 @@
       "typography": "Typography",
       "density": "Layout Density",
       "industry": "Industry",
+      "animation": "Animation Style",
+      "features": "Additional Features",
       "projectName": "Project Name",
       "description": "Description"
     }
@@ -31,7 +34,7 @@
   "admin": {
     "title": "Admin — All Sessions",
     "token": "Token",
-    "project": "Project",
+    "style": "Style",
     "industry": "Industry",
     "lang": "Lang",
     "date": "Date",

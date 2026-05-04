@@ -3,10 +3,10 @@
 import Link from 'next/link'
 import { useApp } from '@/components/Providers'
 import { t } from '@/lib/i18n'
-import type { ISession } from '@/lib/models/Session'
+import type { QuizResultModel } from '@/types/QuizModel'
 
 interface Props {
-  sessions: ISession[]
+  sessions: QuizResultModel[]
   unauthorized: boolean
 }
 
@@ -34,7 +34,7 @@ export function AdminClient({ sessions, unauthorized }: Props) {
           <table className="w-full text-sm">
             <thead className="bg-zinc-50 dark:bg-zinc-800">
               <tr>
-                {['token', 'project', 'industry', 'lang', 'date', 'view'].map((col) => (
+                {['token', 'style', 'industry', 'lang', 'date', 'view'].map((col) => (
                   <th
                     key={col}
                     className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-zinc-500 dark:text-zinc-400"
@@ -48,15 +48,15 @@ export function AdminClient({ sessions, unauthorized }: Props) {
               {sessions.map((s) => (
                 <tr key={s.token} className="bg-white hover:bg-zinc-50 dark:bg-zinc-900 dark:hover:bg-zinc-800/50">
                   <td className="px-4 py-3 font-mono text-xs text-zinc-600 dark:text-zinc-400">{s.token}</td>
-                  <td className="px-4 py-3 text-zinc-800 dark:text-zinc-200">{s.answers?.projectName || '—'}</td>
+                  <td className="px-4 py-3 text-zinc-800 dark:text-zinc-200 capitalize">{s.answers?.style || '—'}</td>
                   <td className="px-4 py-3 text-zinc-600 dark:text-zinc-400">{s.answers?.industry || '—'}</td>
                   <td className="px-4 py-3 uppercase text-zinc-600 dark:text-zinc-400">{s.lang}</td>
                   <td className="px-4 py-3 text-zinc-500 dark:text-zinc-500">
-                    {new Date(s.createdAt).toLocaleDateString()}
+                    {new Date(s.createdAt!).toLocaleDateString()}
                   </td>
                   <td className="px-4 py-3">
                     <Link
-                      href={`/result/${s.token}`}
+                      href={`/quiz/${s.token}`}
                       className="text-indigo-600 hover:underline dark:text-indigo-400"
                     >
                       {t(lang, 'admin.view')}

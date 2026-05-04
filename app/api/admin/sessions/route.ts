@@ -1,6 +1,6 @@
 import { NextRequest } from 'next/server'
-import { connectDB } from '@/lib/mongodb'
-import Session from '@/lib/models/Session'
+import dbConnect from '@/lib/db'
+import QuizResult from '@/models/QuizResult'
 
 export async function GET(request: NextRequest) {
   const key = request.nextUrl.searchParams.get('key')
@@ -10,8 +10,8 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    await connectDB()
-    const sessions = await Session.find({})
+    await dbConnect()
+    const sessions = await QuizResult.find({})
       .sort({ createdAt: -1 })
       .limit(50)
       .lean()

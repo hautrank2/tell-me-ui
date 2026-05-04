@@ -1,5 +1,5 @@
-import en from '@/messages/en.json'
-import vi from '@/messages/vi.json'
+import en from '@/locals/en/quiz.json'
+import vi from '@/locals/vi/quiz.json'
 
 export type Lang = 'en' | 'vi'
 
