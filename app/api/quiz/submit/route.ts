@@ -15,7 +15,7 @@ export async function POST(request: NextRequest) {
     await dbConnect()
 
     const token = nanoid(10)
-    await QuizResult.create({
+    const result = await (QuizResult.create as any)({
       token,
       answers,
       lang: lang || 'en',
@@ -24,6 +24,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ token })
   } catch (err) {
     console.error(err)
-    return NextResponse.json({ error: 'Server error' }, { status: 500 })
+    return NextResponse.json({ error: 'Server error', details: String(err) }, { status: 500 })
   }
 }
+

@@ -17,10 +17,10 @@ export function RadioVisualOption({ option, selected, onSelect, lang }: Props) {
     <button
       type="button"
       onClick={onSelect}
-      className={`group relative flex flex-col items-center gap-4 rounded-2xl border-2 p-5 text-center transition-all duration-300 ease-out focus:outline-none focus-visible:ring-2 focus-visible:ring-primary ${
+      className={`group relative flex flex-col items-center gap-3 rounded-lg border-2 p-4 text-center transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary ${
         selected
-          ? 'border-primary bg-primary/5 shadow-md shadow-primary/10'
-          : 'border-border bg-card hover:-translate-y-1 hover:border-primary/30 hover:bg-muted hover:shadow-lg'
+          ? 'border-primary bg-gradient-to-br from-primary/10 to-primary/5 shadow-lg shadow-primary/20'
+          : 'border-border bg-card hover:border-primary/40 hover:bg-muted/50 hover:-translate-y-0.5 hover:shadow-md'
       }`}
     >
       {/* Preview element */}
@@ -36,29 +36,30 @@ export function RadioVisualOption({ option, selected, onSelect, lang }: Props) {
       {hasStyle && !hasPreview && (
         <div
           style={{ ...option.style, padding: '10px 20px', minWidth: '80px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-          className="rounded text-sm"
+          className="rounded text-sm shadow-sm"
           aria-hidden="true"
         >
           {option.label[lang]}
         </div>
       )}
 
-      <div>
-        <p className="text-sm font-semibold text-foreground">
+      <div className="flex flex-col">
+        <p className={`text-sm font-semibold ${selected ? 'text-primary' : 'text-foreground'}`}>
           {option.label[lang]}
         </p>
         {option.description && (
-          <p className="mt-0.5 text-xs text-muted-foreground">
+          <p className="mt-1 text-xs text-muted-foreground">
             {option.description[lang]}
           </p>
         )}
       </div>
 
       {selected && (
-        <span className="absolute right-2 top-2 flex h-5 w-5 items-center justify-center rounded-full bg-primary text-primary-foreground text-xs">
+        <span className="absolute -right-2 -top-2 flex h-6 w-6 items-center justify-center rounded-full bg-primary shadow-lg text-primary-foreground text-sm font-bold">
           ✓
         </span>
       )}
     </button>
   )
 }
+

@@ -1,5 +1,7 @@
 import mongoose from 'mongoose'
 import { QuizResultModel } from '@/types/QuizModel'
+import { MOCK_MODE } from '@/lib/db'
+import { mockStore } from '@/lib/mockStore'
 
 const QuizResultSchema = new mongoose.Schema({
   token: {
@@ -19,4 +21,13 @@ const QuizResultSchema = new mongoose.Schema({
   },
 }, { timestamps: true })
 
-export default mongoose.models.QuizResult || mongoose.model<QuizResultModel>('QuizResult', QuizResultSchema)
+const MongooseModel = mongoose.models.QuizResult || mongoose.model<QuizResultModel>('QuizResult', QuizResultSchema)
+
+const MockModel = {
+  create: mockStore.create,
+  findOne: mockStore.findOne,
+  findOneAndUpdate: mockStore.findOneAndUpdate,
+}
+
+export default MOCK_MODE ? MockModel : MongooseModel
+

@@ -45,9 +45,24 @@ export function QuizFlow() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ answers, lang }),
       })
+
+      if (!res.ok) {
+        const error = await res.json()
+        console.error('Submit error:', error)
+        setSubmitting(false)
+        return
+      }
+
       const data = await res.json()
+      if (!data.token) {
+        console.error('No token in response')
+        setSubmitting(false)
+        return
+      }
+
       router.push(`/quiz/${data.token}`)
-    } catch {
+    } catch (err) {
+      console.error('Submit failed:', err)
       setSubmitting(false)
     }
   }
@@ -59,10 +74,10 @@ export function QuizFlow() {
   }
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-10">
       <ProgressBar current={index + 1} total={questions.length} />
 
-      <div className="relative min-h-[360px] overflow-hidden">
+      <div className="relative min-h-[420px] overflow-hidden">
         <AnimatePresence mode="wait" custom={direction}>
           <motion.div
             key={question.id}
@@ -71,7 +86,7 @@ export function QuizFlow() {
             initial="enter"
             animate="center"
             exit="exit"
-            transition={{ duration: 0.25, ease: 'easeInOut' }}
+            transition={{ duration: 0.3, ease: 'easeInOut' }}
             className="w-full"
           >
             <QuestionCard
@@ -84,36 +99,48 @@ export function QuizFlow() {
         </AnimatePresence>
       </div>
 
-      <div className="flex items-center justify-between pt-2">
+      <div className="flex items-center justify-between gap-3 border-t border-border pt-6">
         <button
           type="button"
           onClick={() => go(-1)}
           disabled={index === 0}
-          className="rounded-xl border border-border px-5 py-2.5 text-sm font-medium text-muted-foreground transition hover:bg-muted hover:text-foreground disabled:opacity-30"
+          className="rounded-lg border-2 border-border px-6 py-3 text-sm font-semibold text-foreground transition-all duration-200 hover:bg-muted hover:border-primary/30 disabled:opacity-30 disabled:cursor-not-allowed hover:enabled:-translate-y-0.5 hover:enabled:shadow-md"
         >
-          {t(lang, 'quiz.back')}
+          ← {t(lang, 'quiz.back')}
         </button>
+
+        <div className="flex-1" />
 
         {isLast ? (
           <button
             type="button"
             onClick={handleSubmit}
             disabled={!isAnswered || submitting}
-            className="rounded-xl bg-primary px-6 py-2.5 text-sm font-semibold text-primary-foreground transition hover:opacity-90 disabled:opacity-40"
+            className="flex items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-primary to-primary/90 px-8 py-3 text-sm font-semibold text-primary-foreground transition-all duration-200 hover:shadow-lg hover:shadow-primary/30 disabled:opacity-50 disabled:cursor-not-allowed hover:enabled:-translate-y-0.5 hover:enabled:scale-105"
           >
-            {submitting ? t(lang, 'quiz.submitting') : t(lang, 'quiz.submit')}
+            {submitting ? (
+              <>
+                <div className="h-4 w-4 animate-spin rounded-full border-2 border-primary-foreground border-t-transparent" />
+                {t(lang, 'quiz.submitting')}
+              </>
+            ) : (
+              <>
+                {t(lang, 'quiz.submit')} ✓
+              </>
+            )}
           </button>
         ) : (
           <button
             type="button"
             onClick={() => go(1)}
             disabled={!isAnswered}
-            className="rounded-xl bg-primary px-6 py-2.5 text-sm font-semibold text-primary-foreground transition hover:opacity-90 disabled:opacity-40"
+            className="rounded-lg bg-gradient-to-r from-primary to-primary/90 px-8 py-3 text-sm font-semibold text-primary-foreground transition-all duration-200 hover:shadow-lg hover:shadow-primary/30 disabled:opacity-50 disabled:cursor-not-allowed hover:enabled:-translate-y-0.5 hover:enabled:scale-105"
           >
-            {t(lang, 'quiz.next')}
+            {t(lang, 'quiz.next')} →
           </button>
         )}
       </div>
     </div>
   )
 }
+

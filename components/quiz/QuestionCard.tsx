@@ -17,78 +17,88 @@ interface Props {
 
 export function QuestionCard({ question, value, onChange, lang }: Props) {
   return (
-    <div className="flex flex-col gap-6">
-      <h2 className="text-xl font-semibold text-foreground sm:text-2xl">
-        {question.label[lang]}
-      </h2>
+    <div className="flex flex-col gap-8">
+      <div className="space-y-2">
+        <h2 className="text-3xl font-bold text-foreground sm:text-4xl">
+          {question.label[lang]}
+        </h2>
+        {question.description?.[lang] && (
+          <p className="text-lg text-muted-foreground">
+            {question.description[lang]}
+          </p>
+        )}
+      </div>
 
-      {question.type === 'radio-visual' && question.options && (
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
-          {question.options.map((opt) => (
-            <RadioVisualOption
-              key={opt.value}
-              option={opt}
-              selected={value === opt.value}
-              onSelect={() => onChange(opt.value)}
-              lang={lang}
-            />
-          ))}
-        </div>
-      )}
+      <div className="space-y-4">
+        {question.type === 'radio-visual' && question.options && (
+          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+            {question.options.map((opt) => (
+              <RadioVisualOption
+                key={opt.value}
+                option={opt}
+                selected={value === opt.value}
+                onSelect={() => onChange(opt.value)}
+                lang={lang}
+              />
+            ))}
+          </div>
+        )}
 
-      {question.type === 'radio' && question.options && (
-        <RadioOption
-          options={question.options}
-          value={value}
-          onChange={onChange}
-          lang={lang}
-        />
-      )}
-
-      {question.type === 'checkbox' && question.options && (
-        <CheckboxOption
-          options={question.options}
-          value={value || []}
-          onChange={onChange}
-          lang={lang}
-        />
-      )}
-
-      {question.type === 'color' && (
-        <div className="flex justify-center">
-          <ColorOption
-            value={value || question.defaultValue || '#6366f1'}
+        {question.type === 'radio' && question.options && (
+          <RadioOption
+            options={question.options}
+            value={value}
             onChange={onChange}
-            label={question.label[lang]}
+            lang={lang}
           />
-        </div>
-      )}
+        )}
 
-      {question.type === 'select' && question.options && (
-        <SelectOption
-          options={question.options}
-          value={value}
-          onChange={onChange}
-          lang={lang}
-        />
-      )}
+        {question.type === 'checkbox' && question.options && (
+          <CheckboxOption
+            options={question.options}
+            value={value || []}
+            onChange={onChange}
+            lang={lang}
+          />
+        )}
 
-      {question.type === 'text' && (
-        <TextOption
-          value={value}
-          onChange={onChange}
-          placeholder={question.placeholder?.[lang]}
-        />
-      )}
+        {question.type === 'color' && (
+          <div className="flex justify-center py-4">
+            <ColorOption
+              value={value || question.defaultValue || '#6366f1'}
+              onChange={onChange}
+              label={question.label[lang]}
+            />
+          </div>
+        )}
 
-      {question.type === 'textarea' && (
-        <TextOption
-          value={value}
-          onChange={onChange}
-          placeholder={question.placeholder?.[lang]}
-          multiline
-        />
-      )}
+        {question.type === 'select' && question.options && (
+          <SelectOption
+            options={question.options}
+            value={value}
+            onChange={onChange}
+            lang={lang}
+          />
+        )}
+
+        {question.type === 'text' && (
+          <TextOption
+            value={value}
+            onChange={onChange}
+            placeholder={question.placeholder?.[lang]}
+          />
+        )}
+
+        {question.type === 'textarea' && (
+          <TextOption
+            value={value}
+            onChange={onChange}
+            placeholder={question.placeholder?.[lang]}
+            multiline
+          />
+        )}
+      </div>
     </div>
   )
 }
+

@@ -8,18 +8,16 @@ export async function GET(
 ) {
   try {
     const { id } = await params
-    
+
     await dbConnect()
 
-    const result = await QuizResult.findOne({ token: id }).lean()
+    const result = await (QuizResult.findOne as any)({ token: id })
 
     if (!result) {
       return NextResponse.json({ error: 'Not found' }, { status: 404 })
     }
 
-    // Convert ObjectId to string to avoid serialization issues
     const { _id, ...rest } = result as any
-
     return NextResponse.json(rest)
   } catch (err) {
     console.error(err)
@@ -34,17 +32,16 @@ export async function PUT(
   try {
     const { id } = await params
     await dbConnect()
-    
+
     const data = await request.json()
     if (!data.answers) {
       return NextResponse.json({ error: 'Missing answers' }, { status: 400 })
     }
 
-    const updated = await QuizResult.findOneAndUpdate(
+    const updated = await (QuizResult.findOneAndUpdate as any)(
       { token: id },
-      { $set: { answers: data.answers } },
-      { new: true }
-    ).lean()
+      { $set: { answers: data.answers } }
+    )
 
     if (!updated) {
       return NextResponse.json({ error: 'Not found' }, { status: 404 })

@@ -9,7 +9,7 @@ interface Props {
 
 export function TextOption({ value, onChange, placeholder, multiline }: Props) {
   const base =
-    'w-full rounded-xl border-2 border-border bg-background px-4 py-3 text-sm text-foreground outline-none transition focus:border-primary'
+    'w-full rounded-lg border-2 border-border bg-background px-4 py-3 text-base text-foreground outline-none transition duration-200 focus:border-primary focus:shadow-lg focus:shadow-primary/10 placeholder:text-muted-foreground'
 
   if (multiline) {
     return (
@@ -17,8 +17,8 @@ export function TextOption({ value, onChange, placeholder, multiline }: Props) {
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
-        rows={4}
-        className={`${base} resize-none`}
+        rows={5}
+        className={`${base} resize-none font-normal`}
       />
     )
   }
@@ -33,3 +33,4 @@ export function TextOption({ value, onChange, placeholder, multiline }: Props) {
     />
   )
 }
+

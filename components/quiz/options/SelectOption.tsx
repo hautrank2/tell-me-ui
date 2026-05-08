@@ -17,10 +17,10 @@ export function SelectOption({ options, value, onChange, lang }: Props) {
           key={opt.value}
           type="button"
           onClick={() => onChange(opt.value)}
-          className={`rounded-2xl border-2 px-5 py-4 text-sm font-medium transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-primary ${
+          className={`group rounded-lg border-2 px-4 py-3 text-sm font-semibold transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary ${
             value === opt.value
-              ? 'border-primary bg-primary/5 text-primary shadow-md shadow-primary/10'
-              : 'border-border bg-card text-foreground hover:border-primary/30 hover:bg-muted'
+              ? 'border-primary bg-gradient-to-r from-primary/10 to-primary/5 text-primary shadow-lg shadow-primary/20'
+              : 'border-border bg-card text-foreground hover:border-primary/40 hover:bg-muted/50 hover:-translate-y-0.5'
           }`}
         >
           {opt.label[lang]}
@@ -29,3 +29,4 @@ export function SelectOption({ options, value, onChange, lang }: Props) {
     </div>
   )
 }
+

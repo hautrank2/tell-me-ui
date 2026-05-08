@@ -14,12 +14,17 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={geist.variable} suppressHydrationWarning>
-      <body className="min-h-screen bg-background text-foreground antialiased">
+      <body className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5 text-foreground antialiased">
         <Providers>
           <Navbar />
-          <main className="mx-auto max-w-4xl px-4 py-10">{children}</main>
+          <main className="mx-auto max-w-4xl px-4 py-12 md:py-16">
+            <div className="rounded-2xl border border-border/50 bg-card/50 backdrop-blur-sm p-8 md:p-10 shadow-xl">
+              {children}
+            </div>
+          </main>
         </Providers>
       </body>
     </html>
   )
 }
+
